@@ -79,6 +79,37 @@
     position: relative;
     overflow: hidden;
   }
+  .ca-logo {
+  background: linear-gradient(
+    135deg,
+    #182434 0%,
+    #101b27 60%,
+    #0b1420 100%
+  );
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 8px 24px rgba(0,0,0,0.18);
+}
+
+.ca-logo::before,
+.ca-logo::after {
+  display: none;
+}
+
+.ca-logo span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+
+  color: #FFB162;
+
+  position: relative;
+  z-index: 2;
+}
   .logo-mark::before {
     content: '';
     position: absolute;
@@ -1608,7 +1639,9 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <div class="logo-mark"></div>
+    <div class="logo-mark ca-logo">
+    <span>CA</span>
+  </div>
     <div class="logo-text">
       <strong>Koshy & Associates</strong>
       <span>Chartered Accountants</span>
@@ -1787,42 +1820,42 @@
       <div class="service-num">01</div>
       <div class="service-title">GST Compliance & Filing</div>
       <div class="service-desc">Complete GST registration, return filing, reconciliation and advisory. Stay compliant and penalty-free.</div>
-      <div class="service-arrow">Learn More →</div>
+    
     </div>
     <div class="service-card">
       <div class="service-icon">🔍</div>
       <div class="service-num">02</div>
       <div class="service-title">Statutory Audit</div>
       <div class="service-desc">Rigorous, independent audits that build credibility with stakeholders and meet all regulatory requirements.</div>
-      <div class="service-arrow">Learn More →</div>
+
     </div>
     <div class="service-card">
       <div class="service-icon">📑</div>
       <div class="service-num">03</div>
       <div class="service-title">Income Tax Planning</div>
       <div class="service-desc">Strategic tax planning, ITR filing, and representation before tax authorities for individuals and businesses.</div>
-      <div class="service-arrow">Learn More →</div>
+ 
     </div>
     <div class="service-card">
       <div class="service-icon">💼</div>
       <div class="service-num">04</div>
       <div class="service-title">Business Consultancy</div>
       <div class="service-desc">Financial advisory for business setup, structuring, valuation, and growth strategy aligned with your vision.</div>
-      <div class="service-arrow">Learn More →</div>
+  
     </div>
     <div class="service-card">
       <div class="service-icon">📁</div>
       <div class="service-num">05</div>
       <div class="service-title">Accounts Maintenance</div>
       <div class="service-desc">Accurate bookkeeping and accounting services that keep your financials organized and decision-ready.</div>
-      <div class="service-arrow">Learn More →</div>
+ 
     </div>
     <div class="service-card">
       <div class="service-icon">🏢</div>
       <div class="service-num">06</div>
       <div class="service-title">Corporate Compliance</div>
       <div class="service-desc">ROC filings, company law compliance, MCA returns and secretarial services for private and public companies.</div>
-      <div class="service-arrow">Learn More →</div>
+      
     </div>
   </div>
 </section>
