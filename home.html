@@ -1147,6 +1147,50 @@
     display: inline-flex; align-items: center; gap: 10px;
     transition: all 0.4s ease;
   }
+
+  .btn-cta-whatsapp {
+  padding: 18px 40px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #25D366,
+      #1ebe5d
+    );
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  text-decoration: none;
+
+  border-radius: 6px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    filter 0.35s ease;
+
+  box-shadow:
+    0 10px 30px rgba(37,211,102,0.18);
+}
+
+.btn-cta-whatsapp:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.05);
+
+  box-shadow:
+    0 16px 42px rgba(37,211,102,0.28);
+}
   .btn-cta-primary:hover { background: white; transform: translateY(-2px); box-shadow: 0 16px 48px rgba(0,0,0,0.2); }
   .btn-cta-secondary {
     padding: 18px 40px;
@@ -1426,6 +1470,134 @@
     .btn-cta-primary, .btn-cta-secondary { width: 100%; justify-content: center; padding: 16px 24px; }
     .cta-actions { flex-direction: column; }
   }
+
+
+
+.footer-dev{
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+  max-width: 340px;
+}
+
+.footer-brand-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-top: 30px;
+  padding: 18px;
+
+  width: 100%;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.06),
+      rgba(255,255,255,0.03)
+    );
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  border-radius: 16px;
+
+  backdrop-filter: blur(10px);
+
+  transition:
+    transform .35s ease,
+    border-color .35s ease,
+    background .35s ease,
+    box-shadow .35s ease;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-brand-box::before{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(255,177,98,0.14),
+      transparent 45%
+    );
+
+  opacity:.8;
+  pointer-events:none;
+}
+
+.footer-brand-box:hover{
+  transform: translateY(-3px);
+
+  border-color: rgba(255,177,98,0.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.08),
+      rgba(255,177,98,0.04)
+    );
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.25);
+}
+
+.brand-logo {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 12px;
+  object-fit: cover;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.brand-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+
+  line-height: 1.1;
+}
+
+.brand-sub {
+  margin-top: 4px;
+
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+
+  color: rgba(201,193,177,0.7);
+
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+
+  .footer-dev{
+    max-width: 100%;
+  }
+
+  .footer-brand-box{
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .brand-title{
+    font-size: .98rem;
+  }
+
+  .brand-sub{
+    font-size: .58rem;
+    letter-spacing: .14em;
+  }
+
+}
 </style>
 </head>
 <body>
@@ -1818,8 +1990,17 @@
       Book a free 30-minute consultation. We'll understand your needs, answer your questions, and show you exactly how we can help.
     </p>
     <div class="cta-actions reveal reveal-delay-3">
-      <a href="tel:+919847861819" class="btn-cta-primary">📞 Call Now — Free Consult</a>
-      <a href="mailto:info@koshyassociates.com" class="btn-cta-secondary">Send an Email</a>
+      <a href="tel:+919847861819" class="btn-cta-primary">
+        📞 Call Now
+      </a>
+
+      <a href="https://wa.me/919847861819" target="_blank" class="btn-cta-whatsapp">
+        💬 WhatsApp
+      </a>
+
+      <a href="mailto:info@koshyassociates.com" class="btn-cta-secondary">
+        Send an Email
+      </a>
     </div>
 
     <div class="cta-contact-row reveal reveal-delay-4">
@@ -1852,12 +2033,31 @@
 <footer>
   <div class="footer-logo">
     <strong>Koshy & Associates</strong>
-    <span>Chartered Accountants · Kottarakkara</span>
+    <span>Chartered Accountants</span>
+
+    <!-- ELEVATE EDGE -->
+    <a href="https://elevate-edge-2026.vercel.app/" target="_blank" class="footer-dev">
+      <div class="footer-brand-box">
+        <img src="elevate-logo.png" class="brand-logo" />
+
+        <div>
+          <div class="brand-title">Elevate Edge</div>
+          <div class="brand-sub">CRAFTED DIGITAL EXPERIENCES</div>
+        </div>
+      </div>
+    </a>
+
   </div>
-  <div class="footer-copy">© 2026 Koshy & Associates. All rights reserved.</div>
+
+  <div class="footer-copy">
+    © 2026 Koshy & Associates. All rights reserved.
+  </div>
+
   <div class="footer-links">
     <a href="#about">About</a>
     <a href="#services">Services</a>
+    <a href="#why">Why Us</a>
+    <a href="#testimonials">Clients</a>
     <a href="#cta">Contact</a>
   </div>
 </footer>
