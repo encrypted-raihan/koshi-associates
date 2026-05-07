@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koshy & Associates — Chartered Accountants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --palladian: #EEE9DF;
+    --oatmeal: #C9C1B1;
+    --blue-fantastic: #2C3B4D;
+    --burning-flame: #FFB162;
+    --truffle: #A35139;
+    --abyssal: #1B2632;
+    --white: #FAFAF7;
+    --text-dark: #1B2632;
+    --text-mid: #4A5568;
+    --text-light: #8A9BB0;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ─── CUSTOM CURSOR ─── */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--burning-flame);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: multiply;
+  }
+  .cursor-follower {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--blue-fantastic);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    opacity: 0.5;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 5vw;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(250, 250, 247, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(44,59,77,0.08);
+    transition: all 0.4s ease;
+  }
+  nav.scrolled {
+    height: 60px;
+    box-shadow: 0 4px 32px rgba(27,38,50,0.08);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 40px; height: 40px;
+    background: var(--abyssal);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-mark::before {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 2px solid var(--burning-flame);
+    border-radius: 3px;
+    transform: rotate(15deg);
+  }
+  .logo-mark::after {
+    content: '';
+    position: absolute;
+    width: 10px; height: 10px;
+    background: var(--burning-flame);
+    border-radius: 2px;
+    transform: rotate(15deg);
+    opacity: 0.6;
+  }
+  .logo-text { line-height: 1.1; }
+  .logo-text strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600; font-size: 17px;
+    color: var(--abyssal);
+    letter-spacing: 0.02em;
+  }
+  .logo-text span {
+    font-size: 9px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--text-light);
+    font-weight: 500;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px; font-weight: 400;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--text-mid); text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0;
+    width: 0; height: 1px; background: var(--burning-flame);
+    transition: width 0.4s cubic-bezier(0.23,1,0.32,1);
+  }
+  .nav-links a:hover { color: var(--abyssal); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    padding: 10px 24px;
+    background: var(--abyssal);
+    color: var(--palladian) !important;
+    border-radius: 6px;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.1em !important;
+    transition: all 0.3s ease !important;
+  }
+  .nav-cta:hover { background: var(--truffle) !important; color: white !important; }
+  .nav-cta::after { display: none !important; }
+  .hamburger {
+    display: none;
+    flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    display: block; width: 24px; height: 1.5px;
+    background: var(--abyssal);
+    transition: all 0.3s ease;
+  }
+
+  /* ─── MOBILE MENU ─── */
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 72px; left: 0; right: 0; bottom: 0;
+    background: rgba(250,250,247,0.98);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center; justify-content: center; gap: 40px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: all; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 6vw, 48px);
+    font-weight: 400; letter-spacing: 0.02em;
+    color: var(--abyssal); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .mobile-menu a:hover { color: var(--burning-flame); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    padding: 72px 5vw 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--white);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 70% 50%, rgba(255,177,98,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(44,59,77,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-grain {
+    position: absolute; inset: 0;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 2; padding-right: 60px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--truffle); font-weight: 500;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.8s 0.3s ease forwards;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 28px; height: 1px; background: var(--truffle);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 5.5vw, 88px);
+    font-weight: 300; line-height: 1.06;
+    letter-spacing: -0.01em;
+    color: var(--abyssal);
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.9s 0.5s ease forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--truffle); font-weight: 300; }
+  .hero-title strong { font-weight: 600; }
+  .hero-subtitle {
+    font-size: 16px; line-height: 1.75;
+    color: var(--text-mid); max-width: 440px;
+    margin-bottom: 44px;
+    opacity: 0; animation: fadeUp 0.9s 0.7s ease forwards;
+    font-weight: 300;
+  }
+  .hero-actions {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.9s 0.9s ease forwards;
+  }
+  .btn-primary {
+    padding: 16px 36px;
+    background: var(--abyssal);
+    color: var(--palladian);
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; border-radius: 6px;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+    position: relative; overflow: hidden;
+  }
+  .btn-primary::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--truffle);
+    transform: translateX(-100%);
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+  }
+  .btn-primary:hover::before { transform: translateX(0); }
+  .btn-primary span { position: relative; z-index: 1; }
+  .btn-primary .arrow { position: relative; z-index: 1; font-size: 16px; transition: transform 0.3s ease; }
+  .btn-primary:hover .arrow { transform: translateX(4px); }
+  .btn-secondary {
+    font-size: 13px; font-weight: 400;
+    color: var(--text-mid); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    letter-spacing: 0.04em;
+    transition: color 0.3s;
+  }
+  .btn-secondary:hover { color: var(--abyssal); }
+  .btn-secondary .play-icon {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--oatmeal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    transition: all 0.3s ease;
+  }
+  .btn-secondary:hover .play-icon {
+    border-color: var(--burning-flame);
+    background: var(--burning-flame);
+    color: white;
+  }
+
+  /* ─── HERO VISUAL ─── */
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    height: 580px;
+    opacity: 0; animation: fadeIn 1.2s 0.6s ease forwards;
+  }
+  .hero-3d-scene {
+    position: relative; width: 420px; height: 420px;
+  }
+  .scene-card {
+    position: absolute;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 24px 80px rgba(27,38,50,0.12), 0 8px 24px rgba(27,38,50,0.06);
+    transition: transform 0.6s cubic-bezier(0.23,1,0.32,1);
+    overflow: hidden;
+  }
+.card-main {
+  width: 280px;
+  height: 340px;
+
+  top: 50%;
+  left: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    perspective(1000px)
+    rotateY(-8deg)
+    rotateX(4deg);
+
+  border-radius: 22px;
+
+  /* DARK LUXURY BASE */
+  background:
+    radial-gradient(circle at top right,
+      rgba(255,177,98,0.12),
+      transparent 28%),
+
+    linear-gradient(
+      135deg,
+      #0f1722 0%,
+      #162231 40%,
+      #0d1620 100%
+    );
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 28px;
+
+  overflow: hidden;
+
+  isolation: isolate;
+}
+
+.card-main::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 1px,
+      transparent 28px
+    );
+
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.card-main::after {
+  content: '';
+
+  position: absolute;
+
+  width: 320px;
+  height: 320px;
+
+  right: -160px;
+  top: -120px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,177,98,0.14),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+  .card-main-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 24px;
+  }
+  .card-avatar {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--abyssal), var(--blue-fantastic));
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 500;
+  }
+  .card-name strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.92);
+}
+  .card-name span {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+}
+  .card-metric {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; gap: 6px;
+  }
+  .metric-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 300;
+  line-height: 1;
+
+  color: #ffffff;
+
+  text-shadow:
+    0 0 20px rgba(255,255,255,0.08);
+}
+  .metric-label {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: rgba(255,255,255,0.42);
+}
+  .metric-sub {
+  font-size: 11px;
+  color: #ffb162;
+  font-weight: 500;
+}
+  .card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-top: 16px;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.card-footer span {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.08em;
+}
+
+
+.card-main-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 140px;
+  height: 140px;
+
+  border-top: 1px solid rgba(255,177,98,0.35);
+  border-right: 1px solid rgba(255,177,98,0.35);
+
+  border-top-right-radius: 22px;
+
+  opacity: 0.7;
+}
+
+
+.card-dot { width: 8px; height: 8px; border-radius: 50%; background: #4CAF82; }
+
+    .card-float-1 {
+    width: 160px;
+    height: 88px;
+    top: 40%;
+    left: -10%;
+    transform: translateY(-50%);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    animation: float1 6s ease-in-out infinite;
+    }
+  .card-float-1 .f-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); }
+  .card-float-1 .f-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 500; color: var(--abyssal);
+    line-height: 1;
+  }
+  .card-float-1 .f-change { font-size: 10px; color: #4CAF82; font-weight: 500; }
+
+  .card-float-2 {
+    width: 140px; height: 100px;
+    bottom: -10%; left: 0;
+    padding: 16px;
+    display: flex; flex-direction: column; gap: 8px;
+    animation: float2 7s ease-in-out infinite;
+  }
+  .card-float-2 .f-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--burning-flame), var(--truffle));
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 14px;
+  }
+  .card-float-2 .f-label { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); }
+  .card-float-2 .f-value { font-size: 13px; font-weight: 500; color: var(--abyssal); }
+
+  .card-float-3 {
+    width: 130px; height: 68px;
+    bottom: 28%; right: -4%;
+    padding: 14px;
+    display: flex; align-items: center; gap: 10px;
+    animation: float3 5s ease-in-out infinite;
+  }
+  .card-float-3 .f-stars { color: var(--burning-flame); font-size: 12px; letter-spacing: 2px; }
+  .card-float-3 .f-text { font-size: 10px; color: var(--text-mid); }
+
+  @keyframes float1 { 0%,100%{transform:translateY(0px) rotate(-2deg)} 50%{transform:translateY(-12px) rotate(-2deg)} }
+  @keyframes float2 { 0%,100%{transform:translateY(0px) rotate(1.5deg)} 50%{transform:translateY(-10px) rotate(1.5deg)} }
+  @keyframes float3 { 0%,100%{transform:translateY(0px) rotate(2deg)} 50%{transform:translateY(-8px) rotate(2deg)} }
+
+  .hero-scroll-hint {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-light);
+    animation: fadeIn 1s 1.5s ease forwards; opacity: 0;
+  }
+  .scroll-line {
+    width: 1px; height: 40px; background: var(--oatmeal);
+    position: relative; overflow: hidden;
+  }
+  .scroll-line::after {
+    content: ''; position: absolute; top: -40px; left: 0;
+    width: 1px; height: 40px;
+    background: var(--burning-flame);
+    animation: scrollDown 2s ease-in-out infinite;
+  }
+  @keyframes scrollDown {
+    0%{top:-40px} 100%{top:100%}
+  }
+
+  /* ─── STATS BAND ─── */
+  .stats-band {
+    padding: 48px 5vw;
+    background: var(--abyssal);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    position: relative; overflow: hidden;
+  }
+  .stats-band::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,177,98,0.06) 0%, transparent 50%);
+  }
+  .stat-item {
+    padding: 28px 32px;
+    display: flex; flex-direction: column; gap: 6px;
+    border-right: 1px solid rgba(255,255,255,0.07);
+    position: relative; z-index: 1;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 3.5vw, 52px); font-weight: 300; line-height: 1;
+    color: var(--burning-flame);
+  }
+  .stat-num span { font-size: 0.55em; font-weight: 400; }
+  .stat-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .stat-desc { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 2px; }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 120px 5vw; }
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--truffle); font-weight: 500; margin-bottom: 20px;
+  }
+  .section-eyebrow::before { content:''; display:block; width:24px; height:1px; background:var(--truffle); }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 64px); font-weight: 300; line-height: 1.1;
+    color: var(--abyssal); margin-bottom: 20px; letter-spacing: -0.01em;
+  }
+  .section-title em { font-style: italic; color: var(--truffle); }
+  .section-sub {
+    font-size: 15px; line-height: 1.8; color: var(--text-mid);
+    max-width: 520px; font-weight: 300;
+  }
+
+  /* ─── ABOUT ─── */
+  #about {
+    background: var(--palladian);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  #about::before {
+    content: 'K&A'; position: absolute; right: -2vw; bottom: -4vw;
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(120px, 16vw, 240px);
+    font-weight: 300; color: rgba(44,59,77,0.04); pointer-events: none;
+    line-height: 1; letter-spacing: -0.05em;
+  }
+  .about-visual {
+    position: relative; height: 500px;
+    perspective: 1000px;
+  }
+.about-img-frame {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 22px;
+
+  position: relative;
+  overflow: hidden;
+
+  transform: perspective(1000px) rotateY(4deg);
+
+  transition: transform 0.6s ease;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(255,177,98,0.12),
+      transparent 22%
+    ),
+
+    radial-gradient(
+      circle at bottom left,
+      rgba(255,255,255,0.04),
+      transparent 30%
+    ),
+
+    linear-gradient(
+      145deg,
+      #182434 0%,
+      #101b27 55%,
+      #0b1420 100%
+    );
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+
+  isolation: isolate;
+}
+
+.about-img-frame::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.018) 0px,
+      rgba(255,255,255,0.018) 1px,
+      transparent 1px,
+      transparent 48px
+    );
+
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.about-img-frame::after {
+  content: '';
+
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  right: -180px;
+  top: -180px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,177,98,0.10),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+.about-luxury-lines {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.about-luxury-lines::before,
+.about-luxury-lines::after {
+  content: '';
+
+  position: absolute;
+
+  border: 1px solid rgba(255,177,98,0.16);
+
+  border-radius: 50%;
+}
+
+.about-luxury-lines::before {
+  width: 420px;
+  height: 420px;
+
+  right: -260px;
+  top: -140px;
+}
+
+.about-luxury-lines::after {
+  width: 320px;
+  height: 320px;
+
+  right: -200px;
+  top: -90px;
+}
+
+  .about-img-frame:hover { transform: perspective(1000px) rotateY(0deg); }
+  .about-img-inner {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, rgba(27,38,50,0) 40%, rgba(27,38,50,0.9) 100%),
+      repeating-linear-gradient(45deg, rgba(255,177,98,0.04) 0px, rgba(255,177,98,0.04) 1px, transparent 1px, transparent 60px);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 36px;
+  }
+.about-img-label {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  color: rgba(255,255,255,0.42);
+
+  margin-bottom: 12px;
+
+  font-weight: 500;
+}
+.about-img-title {
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: 42px;
+  font-weight: 300;
+
+  color: rgba(255,255,255,0.95);
+
+  line-height: 1.15;
+
+  max-width: 420px;
+
+  text-shadow:
+    0 10px 30px rgba(0,0,0,0.35);
+}
+.about-img-inner::before {
+  content: '';
+
+  position: absolute;
+
+  width: 320px;
+  height: 180px;
+
+  left: -40px;
+  bottom: -60px;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(255,255,255,0.06),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+  .about-badge {
+    position: absolute; top: -20px; right: -20px;
+    width: 100px; height: 100px;
+    background: white;
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 16px 48px rgba(27,38,50,0.16);
+    gap: 2px;
+  }
+  .about-badge strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 500; color: var(--abyssal); line-height: 1;
+  }
+  .about-badge span { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); text-align: center; }
+
+  .about-content { position: relative; z-index: 1; }
+  .about-list { list-style: none; margin-top: 36px; display: flex; flex-direction: column; gap: 16px; }
+  .about-list li {
+    display: flex; align-items: flex-start; gap: 14px;
+    font-size: 14px; color: var(--text-mid); line-height: 1.6; font-weight: 300;
+  }
+  .about-list li::before {
+    content: ''; flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px;
+    border: 1.5px solid var(--burning-flame); border-radius: 50%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%23FFB162' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat;
+  }
+
+  /* ─── SERVICES ─── */
+  #services { background: var(--white); }
+  .services-header { max-width: 600px; margin-bottom: 64px; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 24px 80px rgba(27,38,50,0.08);
+  }
+.service-card {
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(255,177,98,0.08),
+      transparent 22%
+    ),
+
+    linear-gradient(
+      145deg,
+      #182434 0%,
+      #111c29 55%,
+      #0b1520 100%
+    );
+
+  padding: 44px 36px;
+
+  position: relative;
+  overflow: hidden;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.45s cubic-bezier(0.23,1,0.32,1),
+    box-shadow 0.45s ease,
+    border-color 0.45s ease;
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  min-height: 340px;
+
+  isolation: isolate;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.service-card::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 1px,
+      transparent 42px
+    );
+
+  opacity: 0.4;
+
+  pointer-events: none;
+}
+
+.service-card::after {
+  content: '';
+
+  position: absolute;
+
+  width: 260px;
+  height: 260px;
+
+  top: -120px;
+  right: -120px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,177,98,0.10),
+      transparent 70%
+    );
+
+  opacity: 0;
+
+  transition: opacity 0.45s ease;
+
+  pointer-events: none;
+}
+
+.service-card:hover::after {
+  opacity: 1;
+}
+  .service-card * { position: relative; z-index: 1; }
+  .service-icon {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+
+  margin-bottom: 28px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.08),
+      rgba(255,255,255,0.03)
+    );
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  backdrop-filter: blur(8px);
+
+  transition: all 0.45s ease;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+  .service-card:hover .service-icon { background: rgba(255,177,98,0.2); }
+.service-num {
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: 11px;
+  letter-spacing: 0.24em;
+
+  color: rgba(255,177,98,0.45);
+
+  margin-bottom: 10px;
+}
+  .service-card:hover .service-num { color: rgba(255,177,98,0.5); }
+.service-title {
+  font-family: 'Cormorant Garamond', serif;
+
+  font-size: 32px;
+  font-weight: 400;
+
+  line-height: 1.18;
+
+  color: rgba(255,255,255,0.94);
+
+  margin-bottom: 18px;
+
+  transition: color 0.35s ease;
+}
+  .service-card:hover .service-title { color: white; }
+.service-desc {
+  font-size: 14px;
+  line-height: 1.9;
+
+  color: rgba(255,255,255,0.48);
+
+  font-weight: 300;
+
+  transition: color 0.35s ease;
+}
+  .service-card:hover .service-desc { color: rgba(255,255,255,0.65); }
+.service-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 28px;
+
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  color: #ffb162;
+
+  font-weight: 500;
+
+  transition: all 0.35s ease;
+}
+  .service-card:hover .service-arrow { color: var(--burning-flame); gap: 10px; }
+
+  .service-card:hover .service-arrow {
+  gap: 14px;
+}
+
+.service-card:hover .service-desc {
+  color: rgba(255,255,255,0.68);
+}
+
+.service-card:hover .service-icon {
+  transform: translateY(-4px);
+
+  border-color: rgba(255,177,98,0.14);
+
+  box-shadow:
+    0 10px 30px rgba(255,177,98,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+  /* ─── WHY US ─── */
+  #why { background: var(--palladian); }
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 64px;
+  }
+  .why-list { display: flex; flex-direction: column; gap: 2px; }
+  .why-item {
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(201,193,177,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .why-item-header {
+    display: flex; align-items: center; gap: 16px;
+    justify-content: space-between;
+  }
+  .why-item-left { display: flex; align-items: center; gap: 16px; }
+  .why-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px; color: var(--oatmeal); min-width: 24px;
+  }
+  .why-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400; color: var(--abyssal);
+    transition: color 0.3s;
+  }
+  .why-item:hover .why-title { color: var(--truffle); }
+  .why-plus {
+    font-size: 20px; color: var(--oatmeal); line-height: 1;
+    transition: transform 0.3s, color 0.3s;
+  }
+  .why-item:hover .why-plus { transform: rotate(45deg); color: var(--truffle); }
+  .why-body {
+    font-size: 13px; line-height: 1.8; color: var(--text-mid); font-weight: 300;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, margin 0.4s ease;
+    margin-left: 40px;
+  }
+  .why-item.active .why-body { max-height: 200px; margin-top: 14px; }
+  .why-item.active .why-plus { transform: rotate(45deg); color: var(--truffle); }
+  .why-visual {
+    position: sticky; top: 100px;
+    background: var(--abyssal);
+    border-radius: 16px;
+    padding: 48px;
+    min-height: 380px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(27,38,50,0.18);
+  }
+  .why-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 80% 0%, rgba(255,177,98,0.12) 0%, transparent 60%);
+  }
+  .why-visual-top { position: relative; z-index: 1; }
+  .why-visual-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: rgba(255,177,98,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 24px;
+  }
+  .why-visual-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300; color: white; line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .why-visual-text { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.5); font-weight: 300; }
+  .why-visual-bottom {
+    position: relative; z-index: 1;
+    display: flex; gap: 24px;
+  }
+  .why-visual-stat { flex: 1; }
+  .why-visual-stat strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-weight: 300; color: var(--burning-flame); line-height: 1;
+  }
+  .why-visual-stat span { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+
+  /* ─── TESTIMONIALS ─── */
+  #testimonials { background: var(--white); overflow: hidden; }
+  .testimonials-header { max-width: 500px; margin-bottom: 64px; }
+  .testimonials-track-wrap { overflow: hidden; margin: 0 -5vw; }
+  .testimonials-track {
+    display: flex; gap: 24px;
+    padding: 12px 5vw;
+    animation: marquee 32s linear infinite;
+    width: max-content;
+  }
+  .testimonials-track:hover { animation-play-state: paused; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  .testi-card {
+    min-width: 360px; max-width: 360px;
+    background: var(--palladian);
+    border-radius: 16px; padding: 36px;
+    border: 1px solid rgba(201,193,177,0.3);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .testi-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(27,38,50,0.1);
+  }
+  .testi-stars { color: var(--burning-flame); font-size: 14px; letter-spacing: 3px; margin-bottom: 18px; }
+  .testi-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; line-height: 1.65; font-style: italic;
+    color: var(--abyssal); font-weight: 400; margin-bottom: 28px;
+  }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--blue-fantastic), var(--abyssal));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    color: rgba(255,255,255,0.7); font-size: 16px;
+  }
+  .testi-info strong { display: block; font-size: 13px; font-weight: 500; color: var(--abyssal); }
+  .testi-info span { font-size: 11px; color: var(--text-light); }
+
+  /* ─── CTA ─── */
+  #cta {
+    background: var(--abyssal);
+    padding: 120px 5vw;
+    position: relative; overflow: hidden;
+    text-align: center;
+  }
+  #cta::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 50% 0%, rgba(255,177,98,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 90% 100%, rgba(163,81,57,0.15) 0%, transparent 50%);
+  }
+  .cta-content { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+  .cta-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,177,98,0.7); font-weight: 500; margin-bottom: 24px;
+  }
+  .cta-eyebrow::before, .cta-eyebrow::after { content:''; display:block; width:24px; height:1px; background:rgba(255,177,98,0.4); }
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 72px); font-weight: 300; line-height: 1.1;
+    color: white; margin-bottom: 20px; letter-spacing: -0.01em;
+  }
+  .cta-title em { font-style: italic; color: var(--burning-flame); }
+  .cta-sub { font-size: 15px; color: rgba(255,255,255,0.45); font-weight: 300; line-height: 1.8; margin-bottom: 48px; }
+  .cta-actions { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .btn-cta-primary {
+    padding: 18px 48px;
+    background: var(--burning-flame);
+    color: var(--abyssal);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; border-radius: 6px;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.4s ease;
+  }
+  .btn-cta-primary:hover { background: white; transform: translateY(-2px); box-shadow: 0 16px 48px rgba(0,0,0,0.2); }
+  .btn-cta-secondary {
+    padding: 18px 40px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+    font-size: 12px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; border-radius: 6px;
+    transition: all 0.4s ease;
+  }
+  .btn-cta-secondary:hover { border-color: rgba(255,255,255,0.5); color: white; background: rgba(255,255,255,0.05); }
+  .cta-contact-row {
+    margin-top: 60px; padding-top: 48px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+  }
+  .cta-contact-item {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px; color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .cta-contact-item:hover { color: rgba(255,255,255,0.7); }
+  .cta-contact-item .icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--abyssal);
+    padding: 48px 5vw;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+  }
+  .footer-logo strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; color: rgba(255,255,255,0.6);
+  }
+  .footer-logo span { display: block; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-top: 2px; }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { font-size: 11px; color: rgba(255,255,255,0.3); text-decoration: none; letter-spacing: 0.08em; transition: color 0.3s; }
+  .footer-links a:hover { color: rgba(255,255,255,0.6); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.23,1,0.32,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-scale {
+    opacity: 0; transform: scale(0.94);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.23,1,0.32,1);
+  }
+  .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+  /* ─── MOBILE RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    .cursor, .cursor-follower { display: none; }
+
+    #hero {
+      grid-template-columns: 1fr;
+      padding: 100px 5vw 60px;
+      text-align: center;
+      min-height: auto;
+    }
+    .hero-content { padding-right: 0; }
+    .hero-subtitle { margin-left: auto; margin-right: auto; }
+    .hero-actions { justify-content: center; }
+    .hero-visual { height: 320px; margin-top: 40px; }
+    .hero-3d-scene { width: 280px; height: 280px; }
+    .card-main { width: 190px; height: 230px; padding: 18px; }
+    .metric-number { font-size: 36px; }
+.card-float-1 {
+  width: 118px;
+  height: 62px;
+
+  top: 20%;
+  left: -6%;
+
+  padding: 10px;
+  gap: 2px;
+
+  z-index: 2;
+}
+
+/* Hide subtext on mobile */
+.card-float-1 .f-change {
+  display: none;
+}
+
+.card-float-1 .f-label {
+  font-size: 8px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+}
+
+.card-float-1 .f-value {
+  font-size: 18px;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.card-float-2 {
+  width: 112px;
+  height: 82px;
+  padding: 10px;
+  gap: 5px;
+
+  bottom: 10%;
+  left: -15%;
+  z-index: 2;
+}
+
+.card-float-3 {
+  width: 106px;
+  height: 56px;
+  padding: 8px;
+
+  right: -10%;
+  bottom: 26%;
+  z-index: 2;
+}
+
+/* MAIN CARD */
+.card-main {
+  width: 280px;
+  height: 340px;
+
+  top: 50%;
+  left: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    perspective(1000px)
+    rotateY(-8deg)
+    rotateX(4deg);
+
+  border-radius: 22px;
+
+  /* DARK LUXURY BASE */
+  background:
+    radial-gradient(circle at top right,
+      rgba(255,177,98,0.12),
+      transparent 28%),
+
+    linear-gradient(
+      135deg,
+      #0f1722 0%,
+      #162231 40%,
+      #0d1620 100%
+    );
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 28px;
+
+  overflow: hidden;
+
+  isolation: isolate;
+}
+.card-main::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 1px,
+      transparent 28px
+    );
+
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.card-main::after {
+  content: '';
+
+  position: absolute;
+
+  width: 320px;
+  height: 320px;
+
+  right: -160px;
+  top: -120px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,177,98,0.14),
+      transparent 70%
+    );
+
+  pointer-events: none;
+}
+
+/* Prevent giant text */
+.card-main .card-name strong {
+  font-size: 11px;
+}
+
+.card-main .card-name span {
+  font-size: 9px;
+}
+
+.metric-number {
+  font-size: 34px;
+}
+
+.metric-label {
+  font-size: 8px;
+}
+
+.metric-sub {
+  font-size: 9px;
+}
+    .hero-scroll-hint { display: none; }
+
+    .stats-band { grid-template-columns: 1fr 1fr; }
+    .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 20px 24px; }
+    .stat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.07); }
+
+    #about { grid-template-columns: 1fr; gap: 40px; padding: 72px 5vw; }
+    .about-visual { height: 280px; }
+    .about-badge { width: 80px; height: 80px; top: -12px; right: -12px; }
+    .about-badge strong { font-size: 20px; }
+
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { padding: 32px 24px; }
+
+    .why-grid { grid-template-columns: 1fr; gap: 40px; }
+    .why-visual { position: static; min-height: auto; }
+
+    section { padding: 72px 5vw; }
+
+    #cta { padding: 80px 5vw; }
+    .cta-contact-row { gap: 24px; }
+
+    footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .footer-links { flex-wrap: wrap; gap: 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .stats-band { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: 38px; }
+    .btn-primary { padding: 14px 28px; }
+    .testi-card { min-width: 280px; max-width: 280px; }
+    .cta-title { font-size: 34px; }
+    .btn-cta-primary, .btn-cta-secondary { width: 100%; justify-content: center; padding: 16px 24px; }
+    .cta-actions { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="logo-mark"></div>
+    <div class="logo-text">
+      <strong>Koshy & Associates</strong>
+      <span>Chartered Accountants</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#testimonials">Clients</a></li>
+    <li><a href="#cta" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#why" onclick="toggleMenu()">Why Us</a>
+  <a href="#testimonials" onclick="toggleMenu()">Clients</a>
+  <a href="#cta" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Kottarakkara, Kerala · Est. Excellence</div>
+    <h1 class="hero-title">
+      Financial <em>Clarity</em><br>
+      <strong>You Can Trust.</strong>
+    </h1>
+    <p class="hero-subtitle">
+      Chartered Accountants dedicated to precision, integrity, and your financial success. 
+      From GST to Audit — comprehensive expertise, personal care.
+    </p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn-primary">
+        <span>Book Consultation</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="#services" class="btn-secondary">
+        <div class="play-icon">▶</div>
+        Explore Services
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-3d-scene">
+      <!-- Main card -->
+      <div class="scene-card card-main">
+        <div class="card-main-header">
+          <div class="card-avatar">K</div>
+          <div class="card-name">
+            <strong>Koshy & Associates</strong>
+            <span>Chartered Accountants</span>
+          </div>
+        </div>
+        <div class="card-metric">
+          <div class="metric-number">20+</div>
+          <div class="metric-label">Years of Excellence</div>
+          <div class="metric-sub">↑ Trusted by 500+ Clients</div>
+        </div>
+        <div class="card-footer">
+          <span>Kottarakkara, Kerala</span>
+          <div class="card-dot"></div>
+        </div>
+      </div>
+      <!-- Float 1 -->
+      <div class="scene-card card-float-1">
+        <div class="f-label">Tax Savings</div>
+        <div class="f-value">₹2.4Cr</div>
+        <div class="f-change">↑ Avg. Client Savings</div>
+      </div>
+      <!-- Float 2 -->
+      <div class="scene-card card-float-2">
+        <div class="f-icon">📋</div>
+        <div class="f-label">Compliance Rate</div>
+        <div class="f-value">100% On-Time</div>
+      </div>
+      <!-- Float 3 -->
+      <div class="scene-card card-float-3">
+        <div>
+          <div class="f-stars">★★★★★</div>
+          <div class="f-text">Top Rated CA Firm</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stat-item reveal">
+    <div class="stat-num">500<span>+</span></div>
+    <div class="stat-label">Clients Served</div>
+    <div class="stat-desc">Across Kerala & beyond</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-1">
+    <div class="stat-num">20<span>+ Yrs</span></div>
+    <div class="stat-label">Experience</div>
+    <div class="stat-desc">Deep domain expertise</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-2">
+    <div class="stat-num">100<span>%</span></div>
+    <div class="stat-label">Compliance Rate</div>
+    <div class="stat-desc">Zero penalty record</div>
+  </div>
+  <div class="stat-item reveal reveal-delay-3">
+    <div class="stat-num">6<span>+</span></div>
+    <div class="stat-label">Services Offered</div>
+    <div class="stat-desc">End-to-end financial care</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal-scale">
+    <div class="about-img-frame">
+        <div class="about-luxury-lines"></div>
+      <div class="about-img-inner">
+        <div class="about-img-label">Our Philosophy</div>
+        <div class="about-img-title">Precision meets<br>personal commitment</div>
+      </div>
+    </div>
+    <div class="about-badge">
+      <strong>K&A</strong>
+    </div>
+  </div>
+
+  <div class="about-content">
+    <div class="section-eyebrow reveal">About the Firm</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Where <em>expertise</em><br>meets integrity
+    </h2>
+    <p class="section-sub reveal reveal-delay-2">
+      Koshy & Associates is a professionally managed CA firm based in Kottarakkara, 
+      offering end-to-end financial services with a team of experienced professionals 
+      who treat every client's finances as their own.
+    </p>
+    <ul class="about-list">
+      <li class="reveal reveal-delay-2">ICAI registered firm with qualified Chartered Accountants and experienced support staff</li>
+      <li class="reveal reveal-delay-3">Personalized attention — we understand your unique business context</li>
+      <li class="reveal reveal-delay-3">Proactive advisory, not just reactive compliance work</li>
+      <li class="reveal reveal-delay-4">Transparent pricing with no hidden charges or surprise costs</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-eyebrow reveal">What We Do</div>
+    <h2 class="section-title reveal reveal-delay-1">
+      Comprehensive<br><em>financial services</em>
+    </h2>
+    <p class="section-sub reveal reveal-delay-2">
+      Every service delivered with the precision of a specialist and the care of a trusted advisor.
+    </p>
+  </div>
+
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <div class="service-num">01</div>
+      <div class="service-title">GST Compliance & Filing</div>
+      <div class="service-desc">Complete GST registration, return filing, reconciliation and advisory. Stay compliant and penalty-free.</div>
+      <div class="service-arrow">Learn More →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <div class="service-num">02</div>
+      <div class="service-title">Statutory Audit</div>
+      <div class="service-desc">Rigorous, independent audits that build credibility with stakeholders and meet all regulatory requirements.</div>
+      <div class="service-arrow">Learn More →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📑</div>
+      <div class="service-num">03</div>
+      <div class="service-title">Income Tax Planning</div>
+      <div class="service-desc">Strategic tax planning, ITR filing, and representation before tax authorities for individuals and businesses.</div>
+      <div class="service-arrow">Learn More →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💼</div>
+      <div class="service-num">04</div>
+      <div class="service-title">Business Consultancy</div>
+      <div class="service-desc">Financial advisory for business setup, structuring, valuation, and growth strategy aligned with your vision.</div>
+      <div class="service-arrow">Learn More →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📁</div>
+      <div class="service-num">05</div>
+      <div class="service-title">Accounts Maintenance</div>
+      <div class="service-desc">Accurate bookkeeping and accounting services that keep your financials organized and decision-ready.</div>
+      <div class="service-arrow">Learn More →</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏢</div>
+      <div class="service-num">06</div>
+      <div class="service-title">Corporate Compliance</div>
+      <div class="service-desc">ROC filings, company law compliance, MCA returns and secretarial services for private and public companies.</div>
+      <div class="service-arrow">Learn More →</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-eyebrow reveal">Why Choose Us</div>
+  <h2 class="section-title reveal reveal-delay-1">The <em>difference</em> is in<br>the details</h2>
+
+  <div class="why-grid">
+    <div class="why-list reveal reveal-delay-2">
+      <div class="why-item active" onclick="toggleWhy(this)">
+        <div class="why-item-header">
+          <div class="why-item-left">
+            <span class="why-num">01</span>
+            <span class="why-title">Deep Local Knowledge</span>
+          </div>
+          <span class="why-plus">+</span>
+        </div>
+        <div class="why-body">Based in Kottarakkara with deep understanding of Kerala's business environment, local tax norms, and state-specific compliance requirements that national firms often overlook.</div>
+      </div>
+      <div class="why-item" onclick="toggleWhy(this)">
+        <div class="why-item-header">
+          <div class="why-item-left">
+            <span class="why-num">02</span>
+            <span class="why-title">Proactive Communication</span>
+          </div>
+          <span class="why-plus">+</span>
+        </div>
+        <div class="why-body">We don't wait for you to ask. Upcoming deadlines, law changes, and opportunities are communicated to you proactively so you're never caught off guard.</div>
+      </div>
+      <div class="why-item" onclick="toggleWhy(this)">
+        <div class="why-item-header">
+          <div class="why-item-left">
+            <span class="why-num">03</span>
+            <span class="why-title">Technology-Enabled Practice</span>
+          </div>
+          <span class="why-plus">+</span>
+        </div>
+        <div class="why-body">Modern accounting software, digital document management, and secure online filing mean faster turnarounds, fewer errors, and complete transparency for every client.</div>
+      </div>
+      <div class="why-item" onclick="toggleWhy(this)">
+        <div class="why-item-header">
+          <div class="why-item-left">
+            <span class="why-num">04</span>
+            <span class="why-title">End-to-End Partnership</span>
+          </div>
+          <span class="why-plus">+</span>
+        </div>
+        <div class="why-body">From startup registration to annual audits and growth advisory, we grow with your business — providing continuity and context that new advisors simply cannot match.</div>
+      </div>
+    </div>
+
+    <div class="why-visual reveal reveal-delay-3">
+      <div class="why-visual-top">
+        <div class="why-visual-icon">⚖️</div>
+        <div class="why-visual-title">Built on trust.<br>Driven by results.</div>
+        <div class="why-visual-text">Every engagement starts with understanding your goals, then building the most efficient path to achieve them — legally, ethically, and sustainably.</div>
+      </div>
+      <div class="why-visual-bottom">
+        <div class="why-visual-stat">
+          <strong>98%</strong>
+          <span>Client Retention</span>
+        </div>
+        <div class="why-visual-stat">
+          <strong>0</strong>
+          <span>Penalties Incurred</span>
+        </div>
+        <div class="why-visual-stat">
+          <strong>24h</strong>
+          <span>Response Time</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <div class="section-eyebrow reveal">Client Stories</div>
+    <h2 class="section-title reveal reveal-delay-1">Trusted by <em>hundreds</em><br>across Kerala</h2>
+  </div>
+
+  <div class="testimonials-track-wrap">
+    <div class="testimonials-track">
+      <!-- Set 1 -->
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Koshy & Associates handled our GST filing flawlessly. Their attention to detail saved us from a significant compliance issue we weren't even aware of."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div class="testi-info"><strong>Rajesh Menon</strong><span>Director, Menon Textiles, Kottarakkara</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"The audit process was smooth, transparent and professionally handled. We finally have a CA firm that speaks our language and understands our sector."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div class="testi-info"><strong>Sreeja Pillai</strong><span>Founder, SP Healthcare Pvt Ltd</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"I've been filing my ITR with them for 8 years. They always find legitimate deductions I'd miss on my own. Exceptional service, every single year."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div class="testi-info"><strong>Anish Kumar</strong><span>Consultant, Kollam</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Setting up our private limited company was seamless. They handled everything end-to-end and kept us informed at every step. Highly recommended."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div class="testi-info"><strong>Priya Nair</strong><span>Co-Founder, GreenBuild Solutions</span></div>
+        </div>
+      </div>
+      <!-- Duplicate for seamless marquee -->
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Koshy & Associates handled our GST filing flawlessly. Their attention to detail saved us from a significant compliance issue we weren't even aware of."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div class="testi-info"><strong>Rajesh Menon</strong><span>Director, Menon Textiles, Kottarakkara</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★</div>
+        <div class="testi-text">"The audit process was smooth, transparent and professionally handled. We finally have a CA firm that speaks our language and understands our sector."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div class="testi-info"><strong>Sreeja Pillai</strong><span>Founder, SP Healthcare Pvt Ltd</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"I've been filing my ITR with them for 8 years. They always find legitimate deductions I'd miss on my own. Exceptional service, every single year."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div class="testi-info"><strong>Anish Kumar</strong><span>Consultant, Kollam</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★</div>
+        <div class="testi-text">"Setting up our private limited company was seamless. They handled everything end-to-end and kept us informed at every step. Highly recommended."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div class="testi-info"><strong>Priya Nair</strong><span>Co-Founder, GreenBuild Solutions</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-content">
+    <div class="cta-eyebrow reveal">Take the First Step</div>
+    <h2 class="cta-title reveal reveal-delay-1">
+      Ready for <em>financial</em><br>peace of mind?
+    </h2>
+    <p class="cta-sub reveal reveal-delay-2">
+      Book a free 30-minute consultation. We'll understand your needs, answer your questions, and show you exactly how we can help.
+    </p>
+    <div class="cta-actions reveal reveal-delay-3">
+      <a href="tel:+919847861819" class="btn-cta-primary">📞 Call Now — Free Consult</a>
+      <a href="mailto:info@koshyassociates.com" class="btn-cta-secondary">Send an Email</a>
+    </div>
+
+    <div class="cta-contact-row reveal reveal-delay-4">
+      <a href="tel:+919847861819" class="cta-contact-item">
+        <div class="icon">📞</div>
+        <div>
+          <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px">Phone</div>
+          <div style="color:rgba(255,255,255,0.65);font-size:14px">+91 98478 61819</div>
+        </div>
+      </a>
+      <div class="cta-contact-item">
+        <div class="icon">📍</div>
+        <div>
+          <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px">Office</div>
+          <div style="color:rgba(255,255,255,0.65);font-size:13px">Kasthurba Building, Pulamon Junction<br>Kottarakkara, Kerala 691531</div>
+        </div>
+      </div>
+      <div class="cta-contact-item">
+        <div class="icon">🕒</div>
+        <div>
+          <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:2px">Hours</div>
+          <div style="color:rgba(255,255,255,0.65);font-size:13px">Mon–Sat: 9 AM – 6 PM<br>Sunday: Closed</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <strong>Koshy & Associates</strong>
+    <span>Chartered Accountants · Kottarakkara</span>
+  </div>
+  <div class="footer-copy">© 2026 Koshy & Associates. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#cta">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const follower = document.getElementById('cursorFollower');
+let mx = 0, my = 0, fx = 0, fy = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+});
+function animateFollower() {
+  fx += (mx - fx) * 0.12;
+  fy += (my - fy) * 0.12;
+  follower.style.transform = `translate(${fx - 18}px, ${fy - 18}px)`;
+  requestAnimationFrame(animateFollower);
+}
+animateFollower();
+
+// Nav scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal, .reveal-scale');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12 });
+reveals.forEach(r => observer.observe(r));
+
+// Why accordion
+function toggleWhy(el) {
+  document.querySelectorAll('.why-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// Mobile menu
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const ham = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  const spans = ham.querySelectorAll('span');
+  if (menu.classList.contains('open')) {
+    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+  } else {
+    spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+  }
+}
+
+// Card 3D tilt
+const cardMain = document.querySelector('.card-main');
+const heroVisual = document.querySelector('.hero-visual');
+if (heroVisual && cardMain) {
+  heroVisual.addEventListener('mousemove', e => {
+    const rect = heroVisual.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width/2) / rect.width;
+    const y = (e.clientY - rect.top - rect.height/2) / rect.height;
+    cardMain.style.transform = `translate(-50%, -50%) perspective(1000px) rotateY(${-8 + x * 12}deg) rotateX(${4 - y * 8}deg)`;
+  });
+  heroVisual.addEventListener('mouseleave', () => {
+    cardMain.style.transform = `translate(-50%, -50%) perspective(1000px) rotateY(-8deg) rotateX(4deg)`;
+  });
+}
+
+// Count-up numbers
+function countUp(el, target, suffix='') {
+  let start = 0; const dur = 2000;
+  const startTime = performance.now();
+  function step(now) {
+    const progress = Math.min((now - startTime) / dur, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target + suffix;
+  }
+  requestAnimationFrame(step);
+}
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const nums = e.target.querySelectorAll('.stat-num');
+      const targets = [500, 20, 100, 6];
+      const suffixes = ['+', '+ Yrs', '%', '+'];
+      nums.forEach((n, i) => { n.innerHTML = ''; countUp(n, targets[i], suffixes[i]); });
+      statsObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+const statsBand = document.querySelector('.stats-band');
+if (statsBand) statsObserver.observe(statsBand);
+</script>
+</body>
+</html>
