@@ -79,36 +79,35 @@
     position: relative;
     overflow: hidden;
   }
-  .ca-logo {
-  background: linear-gradient(
-    135deg,
-    #182434 0%,
-    #101b27 60%,
-    #0b1420 100%
-  );
+.logo-mark {
+  width: 52px;
+  height: 52px;
 
-  border: 1px solid rgba(255,255,255,0.06);
+  background: transparent;
 
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.05),
-    0 8px 24px rgba(0,0,0,0.18);
+  border-radius: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: visible;
+
+  box-shadow: none;
 }
 
-.ca-logo::before,
-.ca-logo::after {
+.logo-mark::before,
+.logo-mark::after {
   display: none;
 }
 
-.ca-logo span {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+.logo-image {
+  width: 100%;
+  height: 100%;
 
-  color: #FFB162;
+  object-fit: contain;
 
-  position: relative;
-  z-index: 2;
+  display: block;
 }
   .logo-mark::before {
     content: '';
@@ -1639,8 +1638,8 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <div class="logo-mark ca-logo">
-    <span>CA</span>
+  <div class="logo-mark">
+    <img src="CA logo.png" alt="CA Logo" class="logo-image">
   </div>
     <div class="logo-text">
       <strong>Koshy & Associates</strong>
